@@ -14,4 +14,4 @@ return $response->getBody()->write(json_encode({\"nom\":\"$args['name']\"}));
 
 $app->run();
 
-?>y
+?>
