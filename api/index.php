@@ -61,7 +61,7 @@ $app->get('/api/hello/{name}',
 $app->get('/api/user',
     function(Request $request, Response $response, $args){
         $jwt = getJWTToken($request);
-        $response->getBody()->write(json_encode($jwt));
+        $response->getBody()->write(json_encode(["user"=>$jwt->login]));
         return $response;
     }
 );
