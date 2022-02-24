@@ -59,7 +59,7 @@ $app->get('/api/user',
         $response->getBody()->write(json_encode(array('nom' => 'test')));
         return $response;
     }
-)
+);
 
 $app->post('/api/login', 
     function(Request $resquest, Response $response,$args){
