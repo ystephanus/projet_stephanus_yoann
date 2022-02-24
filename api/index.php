@@ -28,7 +28,7 @@ function createJWT(Response $res):Response {
     return $response;
 }
 
-$option = [
+$options = [
     "attribute" => "token",
     "header" => "Auuthorization",
     "regexp" => "/Bearer\s+(.*)$/i",
