@@ -10,7 +10,7 @@ $app = AppFactory::create();
 
 const JWT_SECRET = "mathieuLeBg65";
 
-function createJWT(Response $res):Response {
+function createJWT(Response $response):Response {
     $issuedAt = time();
     
     $expirationTime = $issuedAt + 600;
