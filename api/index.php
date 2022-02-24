@@ -10,15 +10,13 @@ $app = AppFactory::create();
 
 const JWT_SECRET = "mathieuLeBg65";
 
-function createJWT(Response $response):Response {
+function createJWT(Response $response, $login):Response {
     $issuedAt = time();
     
     $expirationTime = $issuedAt + 600;
     
     $payload = array(
-        'userid' => 'toto',
-        'email' => 'toto@gmail.com',
-        'pseudo' => 'totoPseudo',
+        'login' => $login,
         'iat' => $issuedAt,
         'exp' => $expirationTime
     );
@@ -26,6 +24,12 @@ function createJWT(Response $response):Response {
     $token_jwt = JWT::encode($payload,JWT_SECRET, "HS256");
     $response = $response->withHeader("Authorization", "Bearer{$token_jwt}");
     return $response;
+}
+
+function getJWTToken($request){
+    $payload = str_replace("Bearer ", "", $request->getHeader('Authorization')[0]);
+    $token = JWT::decode($payload,JWT_SECRET , array("HS256"));
+    return $token; 
 }
 
 $options = [
@@ -56,7 +60,8 @@ $app->get('/api/hello/{name}',
 
 $app->get('/api/user',
     function(Request $resquest, Response $response, $args){
-        $response->getBody()->write(json_encode(array('nom' => 'test')));
+        $jwt = getJWTToken();
+        $response->getBody()->write(json_encode($jwt));
         return $response;
     }
 );
@@ -75,8 +80,8 @@ $app->post('/api/login',
             $err = true;
         }
         if(!$err){
-            $response = createJWT($response);
-            $data = ['nom'=> 'toto', 'prenom'=> 'titi'];
+            $response = createJWT($response, $login);
+            $data = ['login'=> $login];
             $response->getBody()->write(json_encode($data));
         }else{
             $response = $response->withStatus(401);
