@@ -43,7 +43,7 @@ $option = [
         return $response->withHeader("Content-Type",
         "application/json")->getBody()->write(json_encode($data));
     }
-]
+];
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
 
