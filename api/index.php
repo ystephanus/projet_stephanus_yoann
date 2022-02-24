@@ -52,24 +52,24 @@ $options = [
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
 
 $app->get('/api/hello/{name}',
-    function (Request $resquest, Response $response,$args) {
+    function (Request $request, Response $response,$args) {
         $response->getBody()->write(json_encode(array('nom' => $args['name'])));
         return $response;
     }
 );
 
 $app->get('/api/user',
-    function(Request $resquest, Response $response, $args){
-        $jwt = getJWTToken();
+    function(Request $request, Response $response, $args){
+        $jwt = getJWTToken($request);
         $response->getBody()->write(json_encode($jwt));
         return $response;
     }
 );
 
 $app->post('/api/login', 
-    function(Request $resquest, Response $response,$args){
+    function(Request $request, Response $response,$args){
         $err = false;
-        $body = $resquest->getParsedBody();
+        $body = $request->getParsedBody();
         $login = $body['login'] ?? '';
         $pass = $body['pass'] ?? '';
 
