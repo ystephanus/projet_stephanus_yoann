@@ -55,7 +55,7 @@ $app->get('/api/hello/{name}',
 );
 
 $app->get('/api/user',
-    function(Request $req, Response $res, args){
+    function(Request $req, Response $res, $args){
         $response->getBody()->write(json_encode(array('nom' => 'test')));
         return $response;
     }
