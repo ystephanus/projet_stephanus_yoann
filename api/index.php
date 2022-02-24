@@ -79,7 +79,7 @@ $app->post('/api/login',
             $data = ['nom'=> 'toto', 'prenom'=> 'titi'];
             $response->getBody()->write(json_encode($data));
         }else{
-            $response = $response->writeStatus(401);
+            $response = $response->withStatus(401);
         }
         return $response;
     }
