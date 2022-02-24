@@ -8,7 +8,7 @@ use Tuupola\Middleware\HttpBasicAuthentication;
 require __DIR__ . '/../vendor/autoload.php';
 $app = AppFactory::create();
 
-const JWT_TOKEN = "mathieuLeBg65"
+const JWT_TOKEN = "mathieuLeBg65";
 
 function createJWT(Response $res):Response {
     $issuedAt = time();
