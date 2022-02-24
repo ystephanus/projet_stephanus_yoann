@@ -30,7 +30,7 @@ function createJWT(Response $response):Response {
 
 $options = [
     "attribute" => "token",
-    "header" => "Auuthorization",
+    "header" => "Authorization",
     "regexp" => "/Bearer\s+(.*)$/i",
     "secure" => false,
     "algorithm" => ["HS256"],
