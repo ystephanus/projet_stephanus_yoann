@@ -1,0 +1,6 @@
+<p> Description de la voiture : </p>
+<p *ngFor="let v of voitureDetail$ | async ">
+    {{v.detail}}
+    <br/>
+    <button (click)="this.storeService.addToBasket(v)" class="btn btn-primary">Ajouter au panier</button>
+</p>

@@ -1,0 +1,93 @@
+<form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+  <div class="row">
+    <div class="col mb-2">
+        <label class="form-label">Nom</label> 
+        <input type="text" formControlName="nom" name="nom" required class="form-control">
+      </div>
+    <div class="col mb-2">
+      <label class="form-label">Prenom</label> 
+      <input type="text" formControlName="prenom" class="form-control" required>
+    </div>
+    <div class="col mb-2">
+      <label class="form-label">Civilité</label> 
+      <input type="text" formControlName="civilite" class="form-control"> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-2">
+      <label class="form-label">Telephone</label> 
+      <input type="tel" formControlName="tel"  pattern="[0-9]{10}" appErrors class="form-control"> 
+    </div>
+    <div class="col mb-2">
+      <label >Mél</label> 
+      <input type="email" email formControlName="mel" appErrors class="form-control"> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-2">
+      <label class="form-label">Nom utilisateur</label> 
+      <input type="text" formControlName="username" class="form-control">
+    </div>
+    <div class="col mb-2">
+      <label class="form-label">Mot de passe</label> 
+      <input type="password" formControlName="password" class="form-control">
+    </div>
+  </div>
+  <div>
+    <div class="col">
+      <label>Mes adresses : ({{countAdresses$ | async}})</label>
+      <mat-icon (click)="openAdresse()">add</mat-icon>
+    </div>
+    <ul>
+      <li *ngFor="let a of getAdresses$ | async">
+        {{a.adresse}} - {{a.ville}} - {{a.cp}} - {{a.pays}}
+        <button class="btn btn-danger" (click)="deleteAddress(a)">Supprimer</button>
+      </li>
+    </ul>
+
+    <hr/>
+    <form [formGroup]="addressForm" class="me-4 ms-4" *ngIf="openAddress">
+      <div class="row">
+        <div class="col">
+          <label class="form-label">Adresse</label> 
+          <input type="text" formControlName="adresse" class="form-control" required>
+        </div>
+        <div class="col">
+          <label class="form-label">Ville</label> 
+          <input type="text" formControlName="ville" class="form-control" required>
+        </div>
+        <div class="col">
+          <label class="form-label">Code postal</label> 
+          <input type="number" pattern="[0-9]{5}"formControlName="cp" class="form-control" required>
+        </div>
+        <div class="col">
+          <label class="form-label">pays</label> 
+          <input type="text" formControlName="pays" class="form-control" required>
+        </div>
+      </div>
+      <div class="d-grid gap-2 mt-3">
+        <button class="btn btn-primary" type="button" (click)="onAdressSubmit()">Ajouter</button>
+      </div>
+    </form>
+    <hr/>
+
+  </div>
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-success">Submit</button>
+  </div>
+</form>
+
+<app-user-recap 
+    *ngIf="isValid == true" 
+    [nom]="this.profileForm.get('nom')?.value"  
+    [prenom]="this.profileForm.get('prenom')?.value"
+    [adresses]="this.adresses"
+    [cp]="this.profileForm.get('cp')?.value"
+    [ville]="this.profileForm.get('ville')?.value"
+    [pays]="this.profileForm.get('pays')?.value"
+    [mel]="this.profileForm.get('mel')?.value"
+    [tel]="this.profileForm.get('tel')?.value"
+    [civilite]="this.profileForm.get('civilite')?.value"
+    [username]="this.profileForm.get('username')?.value"
+    [password]="this.profileForm.get('password')?.value"  
+></app-user-recap>
