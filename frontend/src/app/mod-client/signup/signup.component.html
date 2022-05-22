@@ -1,1 +1,58 @@
-<p>signup works!</p>
+<form>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <label class="col-form-label">Nom</label> 
+            <input type="text" class="form-control" formControlName="nom" class="form-control" required>
+        </div>
+        <div class="col-3">
+            <label class="col-form-label">Prenom</label> 
+            <input type="text" class="form-control" formControlName="prenom" class="form-control" required> 
+        </div>
+        <div class="col-1">
+            <label class="col-form-label">Civilité</label> 
+            <input type="text" class="form-control" formControlName="civilite" required>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-2">
+            <label class="col-form-label">Adresse</label> 
+            <input type="text" class="form-control" formControlName="adresse" required> 
+        </div>
+        <div class="col-2">
+            <label class="col-form-label" >Code Postal</label> 
+            <input type="text" class="form-control" formControlName="cp"  pattern="[0-9]{5}" required> 
+        </div>
+        <div class="col-2">
+            <label class="col-form-label">Ville</label> 
+            <input type="text" class="form-control" formControlName="ville"  required> 
+        </div>
+        <div class="col-2">
+            <label class="col-form-label">Pays</label> 
+            <input type="text" class="form-control" formControlName="pays" required >
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <label class="col-form-label">Telephone</label> 
+            <input type="tel" class="form-control" formControlName="tel"  pattern="[0-9]{10}" required>
+        </div>
+        <div class="col-4">
+            <label class="col-form-label">Mél</label> 
+            <input type="email" class="form-control" formControlName="mel" required>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <label class="col-form-label">Nom utilisateur</label> 
+            <input type="text" class="form-control" formControlName="username" required>
+
+        </div>
+        <div class="col-4">
+            <label class="col-form-label">Mot de passe</label> 
+            <input type="password" class="form-control" formControlName="password" required> 
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <button type="submit" class="btn btn-success col-6">Submit</button>
+    </div>
+</form>

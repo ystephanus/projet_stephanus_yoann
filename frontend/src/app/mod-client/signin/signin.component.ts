@@ -17,7 +17,6 @@ export class SigninComponent implements OnInit {
   });
 
   onSubmit(){
-    console.log(this.profileForm.value)
     this.connexionService.login(this.profileForm.value.login,this.profileForm.value.password).subscribe(data => console.log(data));
   }
 

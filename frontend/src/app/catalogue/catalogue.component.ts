@@ -20,7 +20,7 @@ export class CatalogueComponent implements OnInit {
   constructor(private catalogueService : CatalogueService, public storeService : StoreService) { }
 
   ngOnInit(): void {
-    this.catalogue = this.catalogueService.getCatalogue();
+    this.catalogue = this.catalogueService.getCatalogue(); //init
   }
 
   valuechange(event: any){

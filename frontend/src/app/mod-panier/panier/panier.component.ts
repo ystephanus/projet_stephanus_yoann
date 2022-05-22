@@ -18,5 +18,6 @@ export class PanierComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   @Select(PanierState.getProduit) produits$ : Observable<Voiture[]>
 }

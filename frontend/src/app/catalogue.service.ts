@@ -24,7 +24,6 @@ export class CatalogueService {
     return "login a user"
   }
   public getCatalogue() : Observable<Voiture[]>{
-    return this.httpClient.get<Voiture[]>('/api/catalogue');
+    return this.httpClient.get<any>('/api/catalogue');
   }
-
 }
