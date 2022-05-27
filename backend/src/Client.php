@@ -156,4 +156,190 @@ class Client
     {
         return $this->password;
     }
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="civilite", type="string", length=30, nullable=true)
+     */
+    private $civilite;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="adresse", type="string", length=200, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="cp", type="string", length=10, nullable=true)
+     */
+    private $cp;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="ville", type="string", length=100, nullable=true)
+     */
+    private $ville;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="pays", type="string", length=100, nullable=true)
+     */
+    private $pays;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="telephone", type="string", length=20, nullable=true)
+     */
+    private $telephone;
+
+
+    /**
+     * Set civilite.
+     *
+     * @param string|null $civilite
+     *
+     * @return Client
+     */
+    public function setCivilite($civilite = null)
+    {
+        $this->civilite = $civilite;
+
+        return $this;
+    }
+
+    /**
+     * Get civilite.
+     *
+     * @return string|null
+     */
+    public function getCivilite()
+    {
+        return $this->civilite;
+    }
+
+    /**
+     * Set adresse.
+     *
+     * @param string|null $adresse
+     *
+     * @return Client
+     */
+    public function setAdresse($adresse = null)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse.
+     *
+     * @return string|null
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set cp.
+     *
+     * @param string|null $cp
+     *
+     * @return Client
+     */
+    public function setCp($cp = null)
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    /**
+     * Get cp.
+     *
+     * @return string|null
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
+
+    /**
+     * Set ville.
+     *
+     * @param string|null $ville
+     *
+     * @return Client
+     */
+    public function setVille($ville = null)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville.
+     *
+     * @return string|null
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set pays.
+     *
+     * @param string|null $pays
+     *
+     * @return Client
+     */
+    public function setPays($pays = null)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays.
+     *
+     * @return string|null
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+
+    /**
+     * Set telephone.
+     *
+     * @param string|null $telephone
+     *
+     * @return Client
+     */
+    public function setTelephone($telephone = null)
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone.
+     *
+     * @return string|null
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
 }
