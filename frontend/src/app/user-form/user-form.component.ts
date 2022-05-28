@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AddAddress } from 'shared/actions/adresse.action';
+//import { AddAddress } from 'shared/actions/user.action';
 import { Adresse } from 'shared/models/Adresse';
-import { AdresseState } from 'shared/states/adresse-state';
+//import { AdresseState } from 'shared/states/adresse-state';
 import { StoreService } from '../store.service';
 
 
@@ -37,8 +37,8 @@ export class UserFormComponent implements OnInit {
   public adresses : Adresse[] = [];
   openAddress: boolean=false;
   
-  @Select(AdresseState.countAdress) countAdresses$ : Observable<number>
-  @Select(AdresseState.getAdresses) getAdresses$ : Observable<Adresse[]>
+  //@Select(AdresseState.countAdress) countAdresses$ : Observable<number>
+  //@Select(AdresseState.getAdresses) getAdresses$ : Observable<Adresse[]>
 
 
   constructor(public storeService : StoreService) { }
@@ -64,14 +64,14 @@ export class UserFormComponent implements OnInit {
       ville : this.addressForm.get('ville').value, 
       pays: this.addressForm.get('pays').value
     }
-    this.storeService.addAdress(address)
+    //this.storeService.addAdress(address)
     this.adresses = [...this.adresses, address]
     this.openAddress = false;
     this.addressForm.reset()
   }
 
   deleteAddress(a : Adresse){
-    this.storeService.deleteAdresse(a)
+    //this.storeService.deleteAdresse(a)
     this.adresses = this.adresses.filter(addr => addr != a)
   }
 }

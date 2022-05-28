@@ -9,3 +9,8 @@ export class RemoveProduct{
     static readonly type='remove product';
     constructor(public payload:Voiture){}
 }
+
+export class ClearProduct{
+    static readonly type='clear product';
+    constructor(){}
+}

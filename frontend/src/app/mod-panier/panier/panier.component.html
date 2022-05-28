@@ -3,5 +3,7 @@
         {{p.marque}} - {{p.modele}} -  {{p.prix | number:'2.' }} euros - {{p.quatite}} fois 
         <button (click)="this.storeService.deleteToBasket(p)">Supprimer</button>
     </li>
+
+    <button class="btn btn-danger" (click)="this.storeService.clearBasket()">Payer</button>
 </ul>
   

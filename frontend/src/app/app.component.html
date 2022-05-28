@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand">{{title}}</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <div class="navbar-nav" *ngIf='(user$ | async) != "" '>
         <a class="nav-link active" aria-current="page" [routerLink]="['/home']">Home</a>
         <a class="nav-link" [routerLink]="['/catalogue']">Catalogue</a>
         <a class="nav-link" [routerLink]="['/user']">User</a>
@@ -12,10 +12,14 @@
         </div>
       </div>
     </div>
-    <div class="d-flex">
+    <div class="d-flex" *ngIf='(user$ | async) == ""'>
       <button class="btn btn-outline-success" type="submit" [routerLink]="['/client/signin']">Connexion</button>
       <button class="btn btn-outline-success me-2" type="submit" [routerLink]="['/client/signup']">Creation de compte</button>
     </div>
+    <div class="d-flex" *ngIf='(user$ | async) != ""'>
+      <button class="btn btn-outline-danger" type="submit" (click)="this.store.logoutState()">Déconnexion</button>
+    </div>
+
   </div>
 </nav>
 

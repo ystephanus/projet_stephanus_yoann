@@ -35,15 +35,15 @@
   </div>
   <div>
     <div class="col">
-      <label>Mes adresses : ({{countAdresses$ | async}})</label>
+      <!--<label>Mes adresses : ({{countAdresses$ | async}})</label>-->
       <mat-icon (click)="openAdresse()">add</mat-icon>
     </div>
-    <ul>
+    <!--<ul>
       <li *ngFor="let a of getAdresses$ | async">
         {{a.adresse}} - {{a.ville}} - {{a.cp}} - {{a.pays}}
         <button class="btn btn-danger" (click)="deleteAddress(a)">Supprimer</button>
       </li>
-    </ul>
+    </ul>-->
 
     <hr/>
     <form [formGroup]="addressForm" class="me-4 ms-4" *ngIf="openAddress">

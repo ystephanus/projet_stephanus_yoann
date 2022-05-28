@@ -14,8 +14,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatSliderModule } from '@angular/material/slider';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserRecapComponent } from './user-recap/user-recap.component';
-import { AdresseState } from 'shared/states/adresse-state';
 import {ApiHTTPInterceptor} from './api-httpinterceptor';
+import { UserState } from 'shared/states/user-state';
 
 const routes : Routes=[
   { path: 'catalogue', component: CatalogueComponent },
@@ -24,7 +24,7 @@ const routes : Routes=[
   { path: 'catalogue/:id', component: DetailProductComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: UserFormComponent },
-  { path: '', redirectTo: '/catalogue', pathMatch: 'full' }
+  { path: '', redirectTo: '/client/signin', pathMatch: 'full' }
 ]
 
 @NgModule({
@@ -41,7 +41,7 @@ const routes : Routes=[
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    NgxsModule.forRoot([PanierState, AdresseState]),
+    NgxsModule.forRoot([PanierState, UserState]),
     BrowserAnimationsModule,
     MatIconModule,
     MatSliderModule,

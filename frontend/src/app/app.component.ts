@@ -4,6 +4,8 @@ import {CatalogueService} from './catalogue.service'
 import { filter } from 'rxjs/operators';
 import { PanierState } from 'shared/states/produit-state';
 import { Select } from '@ngxs/store';
+import { StoreService } from './store.service';
+import { UserState } from 'shared/states/user-state';
 
 
 @Component({
@@ -15,8 +17,9 @@ export class AppComponent implements OnInit{
   title = 'Bienvenue dans le TP3';
   
   @Select(PanierState.countProducts) countProducts$ : Observable<number>;
+  @Select(UserState.getUser) user$ : Observable<string>;
 
-  constructor(private service : CatalogueService) {}
+  constructor(public store : StoreService) {}
   
   myObservable = of('TODO')
   myObservable2 = from(['titi', 'toto', 'tutu'])
@@ -38,5 +41,4 @@ export class AppComponent implements OnInit{
   ngOnDestroy() : void{
     this.subscribe.unsubscribe()
   }
-
 }

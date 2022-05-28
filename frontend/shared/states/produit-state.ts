@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Voiture } from "shared/models/Voiture";
-import { AddProduct, RemoveProduct } from "../actions/produit.action";
+import { AddProduct, ClearProduct, RemoveProduct } from "../actions/produit.action";
 import { ProduitStateModel } from "./produit-state-model";
 
 @State<ProduitStateModel>({
@@ -55,9 +55,17 @@ export class PanierState {
                 produits: state.produits.filter(produit => produit.modele !== payload.modele)
             })
         }
+    }
+    
+    @Action(ClearProduct)
+    ClearProduct(
+        {getState, patchState}:StateContext<ProduitStateModel>,
+    ){
+        const state = getState()
+        patchState({
+            produits : []
+        })
     }  
-
-
 }
 
 
