@@ -9,13 +9,11 @@ export class ConnexionService {
 
   constructor(private http : HttpClient) { }
 
-  public login(login: String, password: String) : Observable<any>{
-    let data: String = "";
-
-    let httpOptions = {
-      headers : new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-    };
-    data = 'login='+login+"&pass="+password;
-    return this.http.post<any>('/api/login', data, httpOptions);
+  public login(data: any) : Observable<any>{
+    return this.http.post<any>('/api/login', data);
     }
+
+  public signin(data : any){
+    return this.http.post('/api/signup', data);
+  }
 }

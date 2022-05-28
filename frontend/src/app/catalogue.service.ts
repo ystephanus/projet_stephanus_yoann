@@ -12,17 +12,6 @@ export class CatalogueService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public postClient(){
-      return "create client"
-  }
-
-  public getClient(){
-    return "get client"
-  }
-
-  public postLogin(){
-    return "login a user"
-  }
   public getCatalogue() : Observable<Voiture[]>{
     return this.httpClient.get<any>('/api/catalogue');
   }

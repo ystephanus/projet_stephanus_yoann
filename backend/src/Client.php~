@@ -342,4 +342,66 @@ class Client
     {
         return $this->telephone;
     }
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="email", type="string", length=200, nullable=true)
+     */
+    private $email;
+
+
+    /**
+     * Set email.
+     *
+     * @param string|null $email
+     *
+     * @return Client
+     */
+    public function setEmail($email = null)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email.
+     *
+     * @return string|null
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="username", type="string", length=30, nullable=true)
+     */
+    private $username;
+
+
+    /**
+     * Set username.
+     *
+     * @param string|null $username
+     *
+     * @return Client
+     */
+    public function setUsername($username = null)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username.
+     *
+     * @return string|null
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
 }

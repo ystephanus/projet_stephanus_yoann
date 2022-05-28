@@ -373,4 +373,35 @@ class Client
     {
         return $this->email;
     }
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="username", type="string", length=30, nullable=true)
+     */
+    private $username;
+
+
+    /**
+     * Set username.
+     *
+     * @param string|null $username
+     *
+     * @return Client
+     */
+    public function setUsername($username = null)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username.
+     *
+     * @return string|null
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
 }

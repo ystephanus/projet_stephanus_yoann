@@ -15,6 +15,7 @@ CREATE TABLE CLIENT (
   VILLE VARCHAR(100),
   PAYS varchar(100),
   telephone varchar(20),  
-  LOGIN VARCHAR(30),
-  PASSWORD VARCHAR(256) 
+  username VARCHAR(30),
+  PASSWORD VARCHAR(256),
+  email varchar(100) 
 );

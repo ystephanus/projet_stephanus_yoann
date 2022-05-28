@@ -44,7 +44,7 @@ $options = [
     "algorithm" => ["HS256"],
     "secret" => JWT_SECRET,
     "path" => ["/api"],
-    "ignore" => ["/api/hello","/api/login","/api/signup", "/api/catalogue"],
+    "ignore" => ["/api/hello","/api/login","/api/signup"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
@@ -119,14 +119,16 @@ $app->post('/api/signup', function (Request $request, Response $response, $args)
     $body = $request->getParsedBody();
 
 
-    $login = $body['login'] ?? "";
+    $username = $body['username'] ?? "";
     $password = $body['password'] ?? "";
     $nom = $body['nom'] ?? "";
     $prenom = $body['prenom'] ?? "";
+    $adresse = $body['adresse'] ?? "";
     $ville = $body['ville'] ?? "";
-    $codePostal = $body['cp'] ?? "";
-    $email = $body['mel'] ?? "";
-    $tel = $body['tel'] ?? "";
+    $cp = $body['codepostal'] ?? "";
+    $pays = $body['pays'] ?? "";
+    $email = $body['mail'] ?? "";
+    $tel = $body['telephone'] ?? "";
     $civilite = $body['civilite'] ?? "";
 
 
@@ -140,15 +142,15 @@ $app->post('/api/signup', function (Request $request, Response $response, $args)
     $client->setVille($ville);
     $client->setPays($pays);
     $client->setTelephone($tel);
-    $client->setEmail($mel);
-    $client->setLogin($login);
+    $client->setEmail($email);
+    $client->setUsername($username);
     $client->setPassword($password);
 
     $entityManager->persist($client);
     $entityManager->flush();
 
     $user = [];
-    $user["login"] = $client->getLogin();
+    $user["username"] = $client->getUsername();
 
     $response->getBody()->write(json_encode($user));
     return $response;
@@ -159,22 +161,20 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
     global $entityManager;
     $err=false;
     $body = $request->getParsedBody();
-    var_dump($request->getParsedBody());
-    $login = $body ['login'] ?? "";
-    $pass = $body ['pass'] ?? "";
+    $login = $body['login'] ?? "";
+    $password = $body['password'] ?? "";
 
     if (!preg_match("/[a-zA-Z0-9]{1,20}/",$login))   {
         $err = true;
     }
-    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$pass))  {
+    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$password))  {
         $err=true;
     }
     if (!$err) {
-        $utilisateurRepository = $entityManager->getRepository('Client');
-        $utilisateur = $utilisateurRepository->findOneBy(array('login' => $login, 'password' => $pass));
-        if ($utilisateur and $login == $utilisateur->getLogin() and $pass == $utilisateur->getPassword()) {
-            $response = addHeaders ($response);
-            $response = createJwT ($response);
+        $utilisateurRepository = $entityManager->getRepository(Client::class);
+        $utilisateur = $utilisateurRepository->findOneBy(array('username' => $login, 'password' => $password));
+        if ($utilisateur && $login == $utilisateur->getUsername() and $password == $utilisateur->getPassword()) {
+            $response = createJwT ($response, $login);
             $data = array('nom' => $utilisateur->getNom(), 'prenom' => $utilisateur->getPrenom());
             $response->getBody()->write(json_encode($data));
         } else {          

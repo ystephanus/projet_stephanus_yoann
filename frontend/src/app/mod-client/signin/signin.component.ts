@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConnexionService } from '../connexion.service';
 
 @Component({
@@ -9,15 +10,15 @@ import { ConnexionService } from '../connexion.service';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private connexionService : ConnexionService) { }
+  constructor(private connexionService : ConnexionService, private _snackBar: MatSnackBar) { }
 
   profileForm = new FormGroup({
-    login : new FormControl(''),
-    password : new FormControl('')
+    login : new FormControl('', [Validators.required]),
+    password : new FormControl('', Validators.required)
   });
 
   onSubmit(){
-    this.connexionService.login(this.profileForm.value.login,this.profileForm.value.password).subscribe(data => console.log(data));
+    this.connexionService.login(this.profileForm.value).subscribe(data => this._snackBar.open("Connexion réussi", "", {duration : 5000}));
   }
 
   ngOnInit(): void {

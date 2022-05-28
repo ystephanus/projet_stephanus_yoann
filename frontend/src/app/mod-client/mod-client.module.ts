@@ -4,7 +4,9 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { Routes, RouterModule } from '@angular/router';
 import { GardtestGuard } from './gardtest.guard';
-import {ReactiveFormsModule} from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorsDirective } from '../errors.directive';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const routes : Routes = [
   {path: 'signin', component: SigninComponent, /*canActivate: [GardtestGuard]*/},
@@ -15,12 +17,13 @@ const routes : Routes = [
   declarations: [
     SignupComponent,
     SigninComponent,
-
+    ErrorsDirective
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ]
 })
 export class ClientModule { }

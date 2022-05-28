@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {ConnexionService} from '../connexion.service' 
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +11,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private fb : FormBuilder) { }
+  constructor(private fb : FormBuilder, private _snackBar: MatSnackBar, private connexionService : ConnexionService) { }
 
   ngOnInit(): void {
   }
@@ -26,5 +29,15 @@ export class SignupComponent implements OnInit {
     username : ['', Validators.required],
     password : ['', Validators.required]
   })
+
+  formSubmit(){
+    console.log("valide")
+    
+    this.connexionService.signin(this.profileForm.value).subscribe(data => 
+      this._snackBar.open("Creation de compte réussi, Vous pouvez vous connectez", "",{
+      duration : 10000,
+    }))
+  }
+  
 
 }

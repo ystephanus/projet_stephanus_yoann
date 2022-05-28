@@ -7,5 +7,5 @@
         <label for="exampleInputPassword1">Password</label>
         <input type="password" class="form-control" placeholder="Password" formControlName="password">
       </div>
-      <button type="submit" class="btn btn-primary">Connexion</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">Connexion</button>
 </form>

@@ -60,7 +60,7 @@ Client:
             length: 20
             options:
                 fixed: false
-        login:
+        username:
             type: string
             nullable: true
             length: 30
@@ -75,7 +75,7 @@ Client:
         email:
             type: string
             nullable: true
-            length: 200
+            length: 100
             options:
                 fixed: false
     lifecycleCallbacks: {  }
