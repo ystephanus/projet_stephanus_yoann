@@ -1,58 +1,58 @@
-<form>
+<form [formGroup]="profileForm">
     <div class="row justify-content-center">
         <div class="col-4">
             <label class="col-form-label">Nom</label> 
-            <input type="text" class="form-control" formControlName="nom" class="form-control" required>
+            <input type="text" class="form-control" formControlName="nom" class="form-control" >
         </div>
         <div class="col-3">
             <label class="col-form-label">Prenom</label> 
-            <input type="text" class="form-control" formControlName="prenom" class="form-control" required> 
+            <input type="text" class="form-control" formControlName="prenom" class="form-control" > 
         </div>
         <div class="col-1">
             <label class="col-form-label">Civilité</label> 
-            <input type="text" class="form-control" formControlName="civilite" required>
+            <input type="text" class="form-control" formControlName="civilite" pattern="[A-Z]{2}" appErrors>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-2">
             <label class="col-form-label">Adresse</label> 
-            <input type="text" class="form-control" formControlName="adresse" required> 
+            <input type="text" class="form-control" formControlName="adresse" > 
         </div>
         <div class="col-2">
             <label class="col-form-label" >Code Postal</label> 
-            <input type="text" class="form-control" formControlName="cp"  pattern="[0-9]{5}" required> 
+            <input type="text" class="form-control" formControlName="codepostal"  pattern="[0-9]{5}" appErrors > 
         </div>
         <div class="col-2">
             <label class="col-form-label">Ville</label> 
-            <input type="text" class="form-control" formControlName="ville"  required> 
+            <input type="text" class="form-control" formControlName="ville"  > 
         </div>
         <div class="col-2">
             <label class="col-form-label">Pays</label> 
-            <input type="text" class="form-control" formControlName="pays" required >
+            <input type="text" class="form-control" formControlName="pays"  >
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-4">
             <label class="col-form-label">Telephone</label> 
-            <input type="tel" class="form-control" formControlName="tel"  pattern="[0-9]{10}" required>
+            <input type="tel" class="form-control" formControlName="telephone"  pattern="[0-9]{10}" appErrors >
         </div>
         <div class="col-4">
             <label class="col-form-label">Mél</label> 
-            <input type="email" class="form-control" formControlName="mel" required>
+            <input type="email" class="form-control" formControlName="mail" appErrors >
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-4">
             <label class="col-form-label">Nom utilisateur</label> 
-            <input type="text" class="form-control" formControlName="username" required>
+            <input type="text" class="form-control" formControlName="username" >
 
         </div>
         <div class="col-4">
             <label class="col-form-label">Mot de passe</label> 
-            <input type="password" class="form-control" formControlName="password" required> 
+            <input type="password" class="form-control" formControlName="password" > 
         </div>
     </div>
     <div class="row justify-content-center">
-        <button type="submit" class="btn btn-success col-6">Submit</button>
+        <button type="submit" class="btn btn-success col-6" [disabled]="!profileForm.valid">Submit</button>
     </div>
 </form>

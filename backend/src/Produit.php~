@@ -125,4 +125,35 @@ class Produit
     {
         return $this->prix;
     }
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="email", type="string", length=200, nullable=true)
+     */
+    private $email;
+
+
+    /**
+     * Set email.
+     *
+     * @param string|null $email
+     *
+     * @return Produit
+     */
+    public function setEmail($email = null)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email.
+     *
+     * @return string|null
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 }

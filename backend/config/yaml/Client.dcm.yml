@@ -72,4 +72,10 @@ Client:
             length: 256
             options:
                 fixed: false
+        email:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
     lifecycleCallbacks: {  }

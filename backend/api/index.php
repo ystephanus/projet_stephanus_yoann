@@ -5,9 +5,12 @@ use Slim\Factory\AppFactory;
 use Firebase\JWT\JWT;
 use Tuupola\Middleware\HttpBasicAuthentication;
 
+
 require __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__  . '/../bootstrap.php';
 $app = AppFactory::create();
+$app->addBodyParsingMiddleware();
+$app->addRoutingMiddleware();
 
 const JWT_SECRET = "mathieuLeBg65";
 
@@ -41,24 +44,23 @@ $options = [
     "algorithm" => ["HS256"],
     "secret" => JWT_SECRET,
     "path" => ["/api"],
-    "ignore" => ["/api/hello","/api/login","/api/createUser", "/api/catalogue"],
+    "ignore" => ["/api/hello","/api/login","/api/signup", "/api/catalogue"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
-        return $response->withHeader("Content-Type",
-        "application/json")->getBody()->write(json_encode($data));
+        return $response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($data));
     }
 ];
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
 
-$app->get('/api/hello/{name}',
+$app->post('/api/hello/{name}',
 function (Request $request, Response $response, $args) {
+    var_dump($request->getParsedBody());
     $response->getBody()->write(json_encode(array('nom' => $args['name'])));
     return $response;
-}
-);
+});
 
 $app->get('/api/catalogue',
 function(Request $request, Response $response, $args){
@@ -103,36 +105,86 @@ $app->get('/api/catalogue/{filter}',
     }
 );
 
-$app->get('/api/user',
-    function(Request $request, Response $response, $args){
+$app->get('/api/user', function(Request $request, Response $response, $args){
         $jwt = getJWTToken($request);
         $response->getBody()->write(json_encode(["user"=>$jwt->login]));
         return $response;
     }
 );
 
-$app->post('/api/login', 
-    function(Request $request, Response $response,$args){
-        $err = false;
-        $body = $request->getParsedBody();
-        $login = $body['login'] ?? '';
-        $pass = $body['pass'] ?? '';
 
-        if(!preg_match("/[a-zA-Z0-9]{1,20}/", $login)){
-            $err = true;
-        }
-        if(!preg_match("/[a-zA-Z0-9]{1,20}/", $pass)){
-            $err = true;
-        }
-        if(!$err){
-            $response = createJWT($response, $login);
-            $data = ['login'=> $login];
+$app->post('/api/signup', function (Request $request, Response $response, $args)
+{
+    global $entityManager;
+    $body = $request->getParsedBody();
+
+
+    $login = $body['login'] ?? "";
+    $password = $body['password'] ?? "";
+    $nom = $body['nom'] ?? "";
+    $prenom = $body['prenom'] ?? "";
+    $ville = $body['ville'] ?? "";
+    $codePostal = $body['cp'] ?? "";
+    $email = $body['mel'] ?? "";
+    $tel = $body['tel'] ?? "";
+    $civilite = $body['civilite'] ?? "";
+
+
+    $client = new Client();
+    
+    $client->setNom($nom);
+    $client->setPrenom($prenom);
+    $client->setCivilite($civilite);
+    $client->setAdresse($adresse);
+    $client->setCp($cp);
+    $client->setVille($ville);
+    $client->setPays($pays);
+    $client->setTelephone($tel);
+    $client->setEmail($mel);
+    $client->setLogin($login);
+    $client->setPassword($password);
+
+    $entityManager->persist($client);
+    $entityManager->flush();
+
+    $user = [];
+    $user["login"] = $client->getLogin();
+
+    $response->getBody()->write(json_encode($user));
+    return $response;
+
+});
+
+$app->post('/api/login', function (Request $request, Response $response, $args) {   
+    global $entityManager;
+    $err=false;
+    $body = $request->getParsedBody();
+    var_dump($request->getParsedBody());
+    $login = $body ['login'] ?? "";
+    $pass = $body ['pass'] ?? "";
+
+    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$login))   {
+        $err = true;
+    }
+    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$pass))  {
+        $err=true;
+    }
+    if (!$err) {
+        $utilisateurRepository = $entityManager->getRepository('Client');
+        $utilisateur = $utilisateurRepository->findOneBy(array('login' => $login, 'password' => $pass));
+        if ($utilisateur and $login == $utilisateur->getLogin() and $pass == $utilisateur->getPassword()) {
+            $response = addHeaders ($response);
+            $response = createJwT ($response);
+            $data = array('nom' => $utilisateur->getNom(), 'prenom' => $utilisateur->getPrenom());
             $response->getBody()->write(json_encode($data));
-        }else{
+        } else {          
             $response = $response->withStatus(401);
         }
-        return $response;
+    } else {
+        $response = $response->withStatus(401);
     }
-);
+
+    return $response;
+});
 
 $app->run();
