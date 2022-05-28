@@ -11,7 +11,7 @@ export class ApiHTTPInterceptor implements HttpInterceptor{
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         if(this.jwtToken != ""){
-            req = req.clone({setHeaders : {Authorization: `Authorization ${this.jwtToken}`}});
+            req = req.clone({setHeaders : {Authorization: `Bearer ${this.jwtToken}`}});
         }
         return next.handle(req).pipe(tap(
             (evt : HttpEvent<any>) =>{

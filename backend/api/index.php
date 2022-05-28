@@ -57,15 +57,17 @@ $app->add(new Tuupola\Middleware\JwtAuthentication($options));
 
 $app->post('/api/hello/{name}',
 function (Request $request, Response $response, $args) {
-    var_dump($request->getParsedBody());
     $response->getBody()->write(json_encode(array('nom' => $args['name'])));
     return $response;
 });
 
 $app->get('/api/catalogue',
 function(Request $request, Response $response, $args){
-    global $entityManager;
 
+    global $entityManager;
+    
+    $jwt = getJWTToken($request);
+    
     $em = $entityManager->getRepository(Produit::class);
     $allProduits = $em->findAll();
     
@@ -86,6 +88,7 @@ function(Request $request, Response $response, $args){
 
 $app->get('/api/catalogue/{filter}',
     function (Request $request, Response $response, $args){
+        $jwt = getJWTToken($request);
         $products = [
             ["marque"=> "Buggati", "modele"=> "veyron", "prix" => 2000000, "detail"=> "Bugatti Veyron. La Veyron 16.4 (/vɛʁɔ̃/) est une supercar du constructeur automobile français Bugatti produite de 2005 à 2015, atteignant la vitesse de 431,072 km/h dans sa version Super Sport, elle était alors la voiture de série la plus rapide du monde. ... Les premiers exemplaires sont sortis d'usine le 19 avril 2005 ."],
             ["marque"=> "Buggati", "modele"=> "chiron","prix"=> 2600000, "detail"=> "La Chiron est une supercar du constructeur automobile français Bugatti (acquis en 1998 par le groupe allemand Volkswagen), descendante annoncée de la Bugatti Veyron 16.4. ... Elle tient son nom du pilote automobile monégasque Louis Chiron (1899-1979)"],
