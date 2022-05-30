@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: '/assets/mock/bouchon.json'
+  baseUrl: '/assets/mock/bouchon.json',
+  ApiBaseApiUrl : 'https://projet-ys-nfe114.herokuapp.com/api'
 };
 
 /*

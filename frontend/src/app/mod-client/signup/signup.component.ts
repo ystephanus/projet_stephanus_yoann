@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {ConnexionService} from '../connexion.service' 
+import {ConnexionService} from '../connexion.service';
+import jsSHA from "jssha";
 
 @Component({
   selector: 'app-signup',
@@ -31,9 +32,16 @@ export class SignupComponent implements OnInit {
   })
 
   formSubmit(){
-    console.log("valide")
+
+        let formData = {...this.profileForm.value}
     
-    this.connexionService.signin(this.profileForm.value).subscribe(data => 
+    let shaObj = new jsSHA("SHA-256", "TEXT");
+    shaObj.update(this.profileForm.value.password);
+    const passwordHash = shaObj.getHash("HEX");
+    formData = {...formData, password : passwordHash}
+    console.log(passwordHash);
+    
+    this.connexionService.signin(formData).subscribe(data => 
       this._snackBar.open("Creation de compte réussi, Vous pouvez vous connectez", "",{
       duration : 10000,
     }))

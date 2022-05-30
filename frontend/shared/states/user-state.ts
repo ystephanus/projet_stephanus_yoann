@@ -25,6 +25,7 @@ export class UserState{
     @Action(Login)
     login( ctx: StateContext<UserStateModel>, username: string){
         const state = ctx.getState();
+        console.log(username)
         ctx.patchState({
             username : username
         })

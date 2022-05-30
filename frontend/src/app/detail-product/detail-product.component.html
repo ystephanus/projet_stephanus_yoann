@@ -1,6 +1,7 @@
-<p> Description de la voiture : </p>
-<p *ngFor="let v of voitureDetail$ | async ">
-    {{v.detail}}
-    <br/>
-    <button (click)="this.storeService.addToBasket(v)" class="btn btn-primary">Ajouter au panier</button>
-</p>
+<div *ngIf="voitureDetail$ | async as voiture">
+    <p> Description de la voiture : </p>
+    <p>Marque de la voiture : {{voiture.marque}}</p>
+    <p>Modèle de la voiture : {{voiture.modele}}</p>
+    <p>Prix de la voiture : {{voiture.prix| number:'2.'}} euros</p>
+    <button (click)="this.storeService.addToBasket(voiture)" class="btn btn-primary">Ajouter au panier</button>
+</div>

@@ -15,17 +15,19 @@ import { StoreService } from '../store.service';
 export class DetailProductComponent implements OnInit {
 
   id : number;
-  constructor(private route: ActivatedRoute, private catalogueService : CatalogueService, public storeService: StoreService) { }
-  voitureDetail$ : Observable<Voiture[]>
+  voitureDetail$ : Observable<Voiture>;
+
+  constructor(
+    private route: ActivatedRoute, 
+    private catalogueService : CatalogueService, 
+    public storeService: StoreService
+  ) { }
 
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap)=>{
       this.id = +params.get('id');
-      this.voitureDetail$ = this.catalogueService.getCatalogue()
-                            .pipe(
-                              map(voitures => voitures.filter((v, idx)=> idx == this.id)
-                            ))
-    })
+      this.voitureDetail$ = this.catalogueService.getProduit(this.id);
+    });
   }
 }

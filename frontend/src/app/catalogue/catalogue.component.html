@@ -16,7 +16,7 @@
       <td>{{c.modele}}</td>
       <td>{{c.prix | number:'2.'}} euros</td>
       <button (click)="this.storeService.addToBasket(c)" type="button" class="btn btn-primary">Ajouter</button>
-      <button [routerLink]="['/catalogue', index]" class="btn btn-info">Détail</button>
+      <button [routerLink]="['/catalogue', c.idProduit]" class="btn btn-info">Détail</button>
     </tr>
   </tbody>
   </table>

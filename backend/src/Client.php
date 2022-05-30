@@ -39,9 +39,51 @@ class Client
     /**
      * @var string|null
      *
-     * @ORM\Column(name="login", type="string", length=30, nullable=true)
+     * @ORM\Column(name="civilite", type="string", length=30, nullable=true)
      */
-    private $login;
+    private $civilite;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="adresse", type="string", length=200, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="cp", type="string", length=10, nullable=true)
+     */
+    private $cp;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="ville", type="string", length=100, nullable=true)
+     */
+    private $ville;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="pays", type="string", length=100, nullable=true)
+     */
+    private $pays;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="telephone", type="string", length=20, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="username", type="string", length=30, nullable=true)
+     */
+    private $username;
 
     /**
      * @var string|null
@@ -49,6 +91,13 @@ class Client
      * @ORM\Column(name="password", type="string", length=256, nullable=true)
      */
     private $password;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=true)
+     */
+    private $email;
 
 
     /**
@@ -108,96 +157,6 @@ class Client
     {
         return $this->prenom;
     }
-
-    /**
-     * Set login.
-     *
-     * @param string|null $login
-     *
-     * @return Client
-     */
-    public function setLogin($login = null)
-    {
-        $this->login = $login;
-
-        return $this;
-    }
-
-    /**
-     * Get login.
-     *
-     * @return string|null
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-    /**
-     * Set password.
-     *
-     * @param string|null $password
-     *
-     * @return Client
-     */
-    public function setPassword($password = null)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password.
-     *
-     * @return string|null
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="civilite", type="string", length=30, nullable=true)
-     */
-    private $civilite;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="adresse", type="string", length=200, nullable=true)
-     */
-    private $adresse;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="cp", type="string", length=10, nullable=true)
-     */
-    private $cp;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="ville", type="string", length=100, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="pays", type="string", length=100, nullable=true)
-     */
-    private $pays;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="telephone", type="string", length=20, nullable=true)
-     */
-    private $telephone;
-
 
     /**
      * Set civilite.
@@ -342,44 +301,6 @@ class Client
     {
         return $this->telephone;
     }
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="email", type="string", length=200, nullable=true)
-     */
-    private $email;
-
-
-    /**
-     * Set email.
-     *
-     * @param string|null $email
-     *
-     * @return Client
-     */
-    public function setEmail($email = null)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email.
-     *
-     * @return string|null
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="username", type="string", length=30, nullable=true)
-     */
-    private $username;
-
 
     /**
      * Set username.
@@ -403,5 +324,53 @@ class Client
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set password.
+     *
+     * @param string|null $password
+     *
+     * @return Client
+     */
+    public function setPassword($password = null)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password.
+     *
+     * @return string|null
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set email.
+     *
+     * @param string|null $email
+     *
+     * @return Client
+     */
+    public function setEmail($email = null)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email.
+     *
+     * @return string|null
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

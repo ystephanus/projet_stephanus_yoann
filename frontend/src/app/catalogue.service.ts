@@ -13,6 +13,10 @@ export class CatalogueService {
   constructor(private httpClient: HttpClient) {}
 
   public getCatalogue() : Observable<Voiture[]>{
-    return this.httpClient.get<any>('/api/catalogue');
+    return this.httpClient.get<any>(`${environment.ApiBaseApiUrl}/catalogue`);
+  }
+
+  public getProduit(id: number): Observable<Voiture>{
+    return this.httpClient.get<Voiture>(`${environment.ApiBaseApiUrl}/catalogue/${id}`);
   }
 }
