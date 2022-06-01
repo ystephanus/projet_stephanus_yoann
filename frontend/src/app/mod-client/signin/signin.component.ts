@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { StoreService } from 'src/app/store.service';
 import { ConnexionService } from '../connexion.service';
 import jsSHA from 'jssha';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -12,7 +13,11 @@ import jsSHA from 'jssha';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private connexionService : ConnexionService, private _snackBar: MatSnackBar, private storeService : StoreService) { }
+  constructor(
+    private connexionService : ConnexionService, 
+    private _snackBar: MatSnackBar, 
+    private router : Router,
+    private storeService : StoreService) { }
 
   profileForm = new FormGroup({
     login : new FormControl('', [Validators.required]),
@@ -30,9 +35,11 @@ export class SigninComponent implements OnInit {
     console.log(passwordHash);
 
 
-    this.connexionService.login(formData).subscribe(data => {
-      this._snackBar.open("Connexion réussi", "", {duration : 5000})
-      this.storeService.loginState(this.profileForm.value.login)
+    this.connexionService.login(formData).subscribe(() => {
+      this.storeService.loginState(formData.username);
+      this._snackBar.open("Connexion réussi !", "Voir le catalogue", {duration : 5000}).onAction().subscribe(() =>{
+        this.router.navigate(['/catalogue'])
+      })
     });
   }
 

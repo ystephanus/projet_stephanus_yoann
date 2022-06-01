@@ -10,7 +10,7 @@ interface UserStateModel{
 @State<UserStateModel>({
     name : 'user',
     defaults : {
-        username : ""
+        username : "",
     }
 })
 
@@ -23,11 +23,11 @@ export class UserState{
    }
 
     @Action(Login)
-    login( ctx: StateContext<UserStateModel>, username: string){
+    login( ctx: StateContext<UserStateModel>, username: string, token : string){
         const state = ctx.getState();
-        console.log(username)
+        console.log(username, token)
         ctx.patchState({
-            username : username
+            username,
         })
     }
 

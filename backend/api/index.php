@@ -196,7 +196,7 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
         $err=true;
     }
     if (!$err) {
-        $utilisateurRepository = $entityManager->getRepository(Client::class);
+        $utilisateurRepository = $entityManager->getRepository('Client');
         $utilisateur = $utilisateurRepository->findOneBy(array('username' => $login, 'password' => $password));
         if ($utilisateur && $login == $utilisateur->getUsername() and $password == $utilisateur->getPassword()) {
             $response = createJwT ($response, $login);

@@ -19,4 +19,8 @@ export class CatalogueService {
   public getProduit(id: number): Observable<Voiture>{
     return this.httpClient.get<Voiture>(`${environment.ApiBaseApiUrl}/catalogue/${id}`);
   }
+
+  public getProduitFiltre(filtre: string): Observable<Voiture[]>{
+    return this.httpClient.get<Voiture[]>(`${environment.ApiBaseApiUrl}/catalogue/filtre?modele=${filtre}`)
+  }
 }

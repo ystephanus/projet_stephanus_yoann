@@ -13,33 +13,17 @@ import { StoreService } from '../store.service';
 })
 export class CatalogueComponent implements OnInit {
 
-  catalogue : Observable<Voiture[]>;
+  catalogue$ : Observable<Voiture[]>;
   recherche : string;
 
 
   constructor(private catalogueService : CatalogueService, public storeService : StoreService) { }
 
   ngOnInit(): void {
-    this.catalogue = this.catalogueService.getCatalogue(); //init
+    this.catalogue$ = this.catalogueService.getCatalogue(); //init
   }
 
-  valuechange(event: any){
-    if(Number(this.recherche)){
-      this.catalogue = this.catalogueService.getCatalogue()
-      .pipe(
-        map(
-          voitures => 
-              voitures.filter(
-                v => v.prix > Number(this.recherche))
-        ))
-    }else{
-      this.catalogue = this.catalogueService.getCatalogue()
-      .pipe(
-        map(
-          voitures => 
-              voitures.filter(
-                v => v.marque.startsWith(this.recherche))
-        ))
-    }
+  valuechange(){
+    this.catalogue$ = this.catalogueService.getProduitFiltre(this.recherche);
   }
 }

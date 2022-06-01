@@ -17,7 +17,7 @@
       <button class="btn btn-outline-success me-2" type="submit" [routerLink]="['/client/signup']">Creation de compte</button>
     </div>
     <div class="d-flex" *ngIf='(user$ | async) != ""'>
-      <button class="btn btn-outline-danger" type="submit" (click)="this.store.logoutState()">Déconnexion</button>
+      <button class="btn btn-outline-danger" type="submit" (click)="signout()">Déconnexion</button>
     </div>
 
   </div>

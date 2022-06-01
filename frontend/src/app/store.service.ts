@@ -13,6 +13,8 @@ export class StoreService {
 
   constructor(private store: Store) { }
 
+  private authenticate : boolean = false;
+
   public addToBasket(v: Voiture){
     return this.store.dispatch(new AddProduct(v));
   }
@@ -26,10 +28,16 @@ export class StoreService {
   }
 
   public loginState(username : string) : void{
-    this.store.dispatch(new Login(username))
+    this.store.dispatch(new Login(username));
+    this.authenticate = true;
   }
 
   public logoutState():void{
     this.store.dispatch(new Logout());
+    this.authenticate = false;
+  }
+
+  public isLogged(){
+    return this.authenticate;
   }
 }

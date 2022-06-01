@@ -16,15 +16,18 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { UserRecapComponent } from './user-recap/user-recap.component';
 import {ApiHTTPInterceptor} from './api-httpinterceptor';
 import { UserState } from 'shared/states/user-state';
+import { Error404Component } from './error404/error404.component';
+import { AuthGuardGuard } from './auth-guard.guard';
 
 const routes : Routes=[
-  { path: 'catalogue', component: CatalogueComponent },
-  { path: 'panier', loadChildren: () => import('./mod-panier/mod-panier.module').then(m => m.ModPanierModule) },
-  { path: 'client', loadChildren: () => import('./mod-client/mod-client.module'). then(m => m.ClientModule) },
-  { path: 'catalogue/:id', component: DetailProductComponent },
+  { path: 'catalogue', component: CatalogueComponent , canActivate : [AuthGuardGuard]},
+  { path: 'panier', loadChildren: () => import('./mod-panier/mod-panier.module').then(m => m.ModPanierModule) , canActivate: [AuthGuardGuard]},
+  { path: 'client', loadChildren: () => import('./mod-client/mod-client.module'). then(m => m.ClientModule)},
+  { path: 'catalogue/:id', component: DetailProductComponent, canActivate: [AuthGuardGuard]},
   { path: 'home', component: HomeComponent },
   { path: 'login', component: UserFormComponent },
-  { path: '', redirectTo: '/client/signin', pathMatch: 'full' }
+  { path: '', redirectTo: '/client/signin', pathMatch: 'full' },
+  { path: '**', component: HomeComponent, pathMatch: 'full'}
 ]
 
 @NgModule({
@@ -34,6 +37,7 @@ const routes : Routes=[
     CatalogueComponent,
     UserFormComponent,
     UserRecapComponent,
+    Error404Component,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,10 @@ const routes : Routes=[
     MatIconModule,
     MatSliderModule,
   ],
-  providers: [{provide:HTTP_INTERCEPTORS, useClass: ApiHTTPInterceptor, multi: true}],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass: ApiHTTPInterceptor, multi: true},
+    AuthGuardGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
