@@ -18,6 +18,7 @@ import {ApiHTTPInterceptor} from './api-httpinterceptor';
 import { UserState } from 'shared/states/user-state';
 import { Error404Component } from './error404/error404.component';
 import { AuthGuardGuard } from './auth-guard.guard';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const routes : Routes=[
   { path: 'catalogue', component: CatalogueComponent , canActivate : [AuthGuardGuard]},
@@ -27,7 +28,7 @@ const routes : Routes=[
   { path: 'home', component: HomeComponent },
   { path: 'login', component: UserFormComponent },
   { path: '', redirectTo: '/client/signin', pathMatch: 'full' },
-  { path: '**', component: HomeComponent, pathMatch: 'full'}
+  { path: '**', component: Error404Component, pathMatch: 'full'}
 ]
 
 @NgModule({
@@ -52,7 +53,8 @@ const routes : Routes=[
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass: ApiHTTPInterceptor, multi: true},
-    AuthGuardGuard
+    AuthGuardGuard,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })
